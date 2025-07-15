@@ -1,11 +1,10 @@
-import './App.css'
+import Body from './components/Body'
+import "@fontsource/poppins"; // default weight 400
 
 function App() {
 
   return (
-    <>
-      <h1 className='text-4xl text-green-600 font-bold  '>Vite + React</h1>
-    </>
+    <Body />
   )
 }
 
