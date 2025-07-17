@@ -1,5 +1,18 @@
 # NetflixGPT
 
+- Create vite project
+- Configured tailwindcss
+- Installed react-router-dom
+- Header
+- Login / Sign up
+- form validation
+- useRef Hook
+- Firebase Setup
+- Deploy on Firebase Hosting : Pending
+- Create SignUp user Account
+- Implement Sign in user api
+- created redux store with userSlice
+
 ## features
 
 - Login / Sign up
