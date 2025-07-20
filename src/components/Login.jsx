@@ -3,13 +3,12 @@ import Header from "./Header"
 import { validateEmail } from "../utils/validate"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from '../utils/firebase'
-import { useNavigate } from "react-router-dom";
+import { USERICON_URL } from "../utils/constants";
 
 const Login = () => {
 
-    const [isSignInform, setIsSignInForm] = useState(true)
+    const [isSignInForm, setisSignInForm] = useState(true)
     const [errMsg, setErrMsg] = useState(null)
-    const navigate = useNavigate()
 
     const name = useRef(null)
     const email = useRef(null)
@@ -17,7 +16,7 @@ const Login = () => {
 
 
     const toggleSignInForm = () => {
-        setIsSignInForm(!isSignInform)
+        setisSignInForm(!isSignInForm)
     }
 
     const handleBtnClick = () => {
@@ -28,28 +27,30 @@ const Login = () => {
         if (msg) return;
 
         // Sign in Sign up Logic
-        if (!isSignInform) {
+        if (!isSignInForm) {
             // Sign Up Logic 
             createUserWithEmailAndPassword(
                 auth,
                 email.current.value,
                 password.current.value
-            ).then((userCredential) => {
-                // Signed up 
-                const user = userCredential.user;
-                updateProfile(user, {
-                    displayName: name.current.value, photoURL: "https://i.imgur.com/WM6zTNc.png"
-                }).then(() => {
-                    navigate("/browse")
-                }).catch((error) => {
-                    setErrMsg(error.message)
+            )
+                .then((userCredential) => {
+                    // Signed up 
+                    const user = userCredential.user;
+                    updateProfile(user, {
+                        displayName: name.current.value, photoURL: USERICON_URL
+                    })
+                        .then(() => {
+                        })
+                        .catch((error) => {
+                            setErrMsg(error.message)
+                        });
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setErrMsg(errorMessage, " : ", errorCode)
                 });
-                console.log(user);
-            }).catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                setErrMsg(errorMessage, " : ", errorCode)
-            });
         } else {
             // Sign in Logic
             signInWithEmailAndPassword(
@@ -58,9 +59,8 @@ const Login = () => {
                 password.current.value
             ).then((userCredential) => {
                 // Signed in 
+                // eslint-disable-next-line no-unused-vars
                 const user = userCredential.user;
-                console.log(user);
-                navigate("/browse")
             }).catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
@@ -79,9 +79,9 @@ const Login = () => {
             </div>
             <form
                 onSubmit={e => e.preventDefault()}
-                className="w-4/12 absolute top-3/12  right-3/6  translate-x-2/4  py-12 bg-black/80 flex flex-col gap-5 items-center text-white rounded">
-                <h1 className="text-3xl font-bold">{isSignInform ? "Sign In" : "Sign Up"}</h1>
-                {!isSignInform && (
+                className="w-4/12 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  py-12 bg-black/80 flex flex-col gap-5 items-center text-white rounded">
+                <h1 className="text-3xl font-bold">{isSignInForm ? "Sign In" : "Sign Up"}</h1>
+                {!isSignInForm && (
                     <input
                         ref={name}
                         type="text"
@@ -94,12 +94,14 @@ const Login = () => {
                     type="text"
                     placeholder="Email Address"
                     className="border-1 bg-gray-900/40 border-white/50 rounded w-8/12 outline-none  placeholder-white/50 px-3 py-4"
+                    autoComplete="email"
                 />
                 <input
                     ref={password}
                     type="password"
                     placeholder="Password"
                     className="border-1 bg-gray-900/40 border-white/50 rounded w-8/12 outline-none placeholder-white/50 px-3 py-4"
+                    autoComplete="current-password"
                 />
                 {
                     errMsg === null ? " " : (
@@ -109,9 +111,9 @@ const Login = () => {
                 <button
                     className="bg-[#e50914] w-8/12 py-3 rounded text-[18px] cursor-pointer"
                     onClick={handleBtnClick}>
-                    {isSignInform ? "Sign In" : "Sign Up"}
+                    {isSignInForm ? "Sign In" : "Sign Up"}
                 </button>
-                <p className="text-white/70 text-[1.1em]">{isSignInform ? (
+                <p className="text-white/70 text-[1.1em]">{isSignInForm ? (
                     <>
                         New to Netflix? <span onClick={toggleSignInForm} className="cursor-pointer text-white underline">Sign up now.</span>
                     </>

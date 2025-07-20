@@ -1,11 +1,16 @@
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase"
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { addUser, removeUser } from "../utils/userSlice"
+import { LOGO_URL } from "../utils/constants"
 
 function Header() {
 
+    const dispatch = useDispatch()
     const navigate = useNavigate()
+
     const user = useSelector(store => store.user)
 
     const handleSignOut = () => {
@@ -18,13 +23,34 @@ function Header() {
         });
     }
 
+    useEffect(() => {
+
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const { uid, email, displayName, photoURL } = user
+                dispatch(
+                    addUser(
+                        { uid: uid, email: email, displayName: displayName, photoURL: photoURL }
+                    )
+                )
+                navigate("/browse")
+            }
+            else {
+                dispatch(removeUser())
+                navigate("/")
+            }
+        })
+
+        // 
+        return () => unsubscribe()
+    }, [])
 
     return (
         <div className='absolute w-full py-5 bg-gradient-to-b from-black flex justify-between items-center px-5 z-10'>
             <div>
                 <img
                     className='w-40'
-                    src="https://imgs.search.brave.com/w2yL9OzZmK7QmSUlMIQNZSllLSCpSroPpwjr_3IV4Hk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy8w/LzA4L05ldGZsaXhf/MjAxNV9sb2dvLnN2/Zw"
+                    src={LOGO_URL}
                     alt="Logo" />
             </div>
             {user &&
