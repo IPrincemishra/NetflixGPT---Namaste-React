@@ -46,7 +46,7 @@ function Header() {
     }, [])
 
     return (
-        <div className='absolute w-full py-5 bg-gradient-to-b from-black flex justify-between items-center px-5 z-10'>
+        <div className='absolute w-full py-5 bg-gradient-to-b from-black flex justify-between items-center px-5 z-100'>
             <div>
                 <img
                     className='w-40'
@@ -57,7 +57,7 @@ function Header() {
                 (<div className='flex gap-3 items-center'>
                     <p className="capitalize text-white">{user.displayName}</p>
                     <img
-                        className='w-10 rounded'
+                        className='w-10 rounded-full shadow'
                         src={user.photoURL}
                         alt="usericon"
                     />

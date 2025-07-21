@@ -20,7 +20,14 @@
 - Add hardcoded values to the constants file
 - Register TMBD API & create an app & get access token
 - Get Data from TMBD now Playing movies list API
--
+- Custom Hooks for Now Playing Movies
+- Create movieSlice
+- Update Store with movie Data
+- Planning for MainContainer and SecondaryContainer
+- Fetch Data for trailer Video
+- Update store with trailer Video Data
+- Embedded the youtube video and make it autoplay and muted
+- Tailwind classes to make main container look awesome
 
 ## features
 
@@ -37,3 +44,12 @@
 - NetflixGPT
   - Search Bar
   - Movie Suggestions
+
+## Browse Page Structure
+
+- MainContainer
+  - VideoBackground
+  - VideoTitle
+- SecondaryContainer
+  - MovieList * n
+    - Cards * n
