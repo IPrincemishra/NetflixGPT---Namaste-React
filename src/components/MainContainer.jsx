@@ -8,14 +8,14 @@ const MainContainer = () => {
     const movies = useSelector(store => store.movies?.nowPlayingMovies)
     if (movies === null) return;
 
-    console.log(movies);
+    // console.log(movies);
     
 
-    // const randomMovie = Math.floor(Math.random() * 20) + 1;
+    const randomMovie = Math.floor(Math.random() * movies.length) + 1;
 
 
-    const mainMovies = movies[1]
-    console.log(mainMovies);
+    const mainMovies = movies[randomMovie]
+    // console.log(mainMovies);
 
     const { original_title, overview, id } = mainMovies
 

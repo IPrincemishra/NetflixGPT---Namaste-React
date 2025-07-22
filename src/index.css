@@ -3,3 +3,18 @@
 body {
   font-family: 'Poppins', sans-serif;
 }
+
+@layer utilities {
+
+  /* Chrome, Safari, Opera */
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Firefox */
+  .scrollbar-hidden {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+  }
+}

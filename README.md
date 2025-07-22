@@ -28,6 +28,10 @@
 - Update store with trailer Video Data
 - Embedded the youtube video and make it autoplay and muted
 - Tailwind classes to make main container look awesome
+- Build secondary container with movie lists
+- build different movie lists with movie cards
+- Create MovieCard component
+- Designed Browse page with tailwind css
 
 ## features
 
@@ -53,3 +57,14 @@
 - SecondaryContainer
   - MovieList * n
     - Cards * n
+
+## SecondaryContainer Structure
+
+- MovieList - Popular
+  - MovieCards * n
+- MovieList - Now Playing
+  - MovieCards * n
+- MovieList - Trending
+  - MovieCards * n
+- MovieList - Horror
+  - MovieCards * n

@@ -1,6 +1,6 @@
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase"
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { addUser, removeUser } from "../utils/userSlice"
@@ -48,10 +48,12 @@ function Header() {
     return (
         <div className='absolute w-full py-5 bg-gradient-to-b from-black flex justify-between items-center px-5 z-100'>
             <div>
-                <img
-                    className='w-40'
-                    src={LOGO_URL}
-                    alt="Logo" />
+                <Link to="/browse">
+                    <img
+                        className='w-40'
+                        src={LOGO_URL}
+                        alt="Logo" />
+                </Link>
             </div>
             {user &&
                 (<div className='flex gap-3 items-center'>
